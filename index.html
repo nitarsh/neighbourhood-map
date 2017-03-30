@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shrinath's Neighbourhood map</title>
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            width: 50vw;
+            height: 50vh;
+        }
+    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <script type='text/javascript' src='js/knockout-3.4.2.js'></script>
+</head>
+
+<body>
+    <header>
+        <h1>Shrinath's Neighbourhood map</h1>
+    </header>
+    <div class="main-content">
+        <div id="map"></div>
+        <div id="loc-list">
+          
+        </div>
+    </div>
+
+    <script>
+        function initMap() {
+            // TODO: use a constructor to create a new map JS object. You can use the coordinates
+            // we used, 40.7413549, -73.99802439999996 or your own!
+            var uluru = {
+                lat: -25.363,
+                lng: 131.044
+            };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: uluru
+            });
+        }
+    </script>
+    <!--TODO: Load the JS API ASYNCHRONOUSLY below.-->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyOG34X2U6iKWgvwGmukiaBaVr3-PkNs4&callback=initMap">
+    </script>
+</body>

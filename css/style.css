@@ -1,0 +1,46 @@
+* {
+  /*color: #fff;*/
+}
+
+div {
+    /*border: 1px solid black;*/
+}
+
+section {
+    border: 1px solid black;
+    margin: 10px;
+}
+
+p{
+  font-size: 2vw;
+}
+
+/*h1 {
+  font-size: 5vw;
+}*/
+
+h2 {
+  font-size: 4vw;
+}
+
+.card {
+    width: 15vw;
+    height: 15vw;
+    margin: 10px;
+    text-overflow: clip;
+    overflow: scroll;
+}
+
+@media only screen and (max-width: 900px) {
+    .card>p {
+        display: none;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+.no-border{
+  border: none;
+}
