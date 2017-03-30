@@ -27,22 +27,84 @@
     <div class="main-content">
         <div id="map"></div>
         <div id="loc-list">
-          
+
         </div>
     </div>
 
     <script>
+        function makeMarkerIcon(markerColor) {
+            var markerImage = new google.maps.MarkerImage(
+                'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
+                '|40|_|%E2%80%A2',
+                new google.maps.Size(21, 34),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(10, 34),
+                new google.maps.Size(21, 34));
+            return markerImage;
+        }
+
         function initMap() {
             // TODO: use a constructor to create a new map JS object. You can use the coordinates
-            // we used, 40.7413549, -73.99802439999996 or your own!
-            var uluru = {
-                lat: -25.363,
-                lng: 131.044
+            // 18.546540,73.903070
+            // 18.542583,73.887738
+            var k_nagar = {
+                lat: 18.546540,
+                lng: 73.903070
             };
+
+            var styles = [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}];
+
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center: uluru
+                zoom: 14,
+                center: k_nagar,
+                styles: styles
             });
+
+            var locations = [{
+                title: 'The Westin',
+                location: {
+                    lat: 18.5396281,
+                    lng: 73.907227
+                }
+            }, {
+                title: 'German Bakery',
+                location: {
+                    lat: 18.542583,
+                    lng: 73.8877385
+                }
+            }];
+
+            var defaultIcon = makeMarkerIcon('11E165');
+            var highlightedIcon = makeMarkerIcon('FF9013');
+
+            for (var i = 0; i < locations.length; i++) {
+                // Get the position from the location array.
+                var position = locations[i].location;
+                var title = locations[i].title;
+                // Create a marker per location, and put into markers array.
+                var marker = new google.maps.Marker({
+                    position: position,
+                    title: title,
+                    animation: google.maps.Animation.DROP,
+                    icon: defaultIcon,
+                    id: i,
+                    map:map
+                });
+                // Push the marker to our array of markers.
+                // markers.push(marker);
+                // Create an onclick event to open the large infowindow at each marker.
+                // marker.addListener('click', function() {
+                //   populateInfoWindow(this, largeInfowindow);
+                // });
+                // // Two event listeners - one for mouseover, one for mouseout,
+                // // to change the colors back and forth.
+                marker.addListener('mouseover', function() {
+                  this.setIcon(highlightedIcon);
+                });
+                marker.addListener('mouseout', function() {
+                  this.setIcon(defaultIcon);
+                });
+            }
         }
     </script>
     <!--TODO: Load the JS API ASYNCHRONOUSLY below.-->
