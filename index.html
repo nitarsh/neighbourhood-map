@@ -12,8 +12,17 @@
         }
 
         #map {
-            width: 50vw;
+            width: 50%;
             height: 50vh;
+        }
+
+        #main-content {
+            display: flex;
+            width: 100%;
+        }
+
+        #loc-list-container {
+            width: 50%;
         }
     </style>
     <link rel="stylesheet" href="css/style.css">
@@ -24,10 +33,12 @@
     <header>
         <h1>Shrinath's Neighbourhood map</h1>
     </header>
-    <div class="main-content">
+    <div id="main-content">
         <div id="map"></div>
-        <div id="loc-list">
+        <div id="loc-list-container">
+            <ul id="loc-list">
 
+            </ul>
         </div>
     </div>
 
@@ -43,6 +54,12 @@
             return markerImage;
         }
 
+        function addToDisplay(listParent, title) {
+            var child = document.createElement("li");
+            child.appendChild(document.createTextNode(title));
+            listParent.appendChild(child);
+        }
+
         function initMap() {
             // TODO: use a constructor to create a new map JS object. You can use the coordinates
             // 18.546540,73.903070
@@ -52,7 +69,59 @@
                 lng: 73.903070
             };
 
-            var styles = [{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#444444"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2f2f2"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":-100},{"lightness":45}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#46bcec"},{"visibility":"on"}]}];
+            var styles = [{
+                "featureType": "administrative",
+                "elementType": "labels.text.fill",
+                "stylers": [{
+                    "color": "#444444"
+                }]
+            }, {
+                "featureType": "landscape",
+                "elementType": "all",
+                "stylers": [{
+                    "color": "#f2f2f2"
+                }]
+            }, {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [{
+                    "visibility": "off"
+                }]
+            }, {
+                "featureType": "road",
+                "elementType": "all",
+                "stylers": [{
+                    "saturation": -100
+                }, {
+                    "lightness": 45
+                }]
+            }, {
+                "featureType": "road.highway",
+                "elementType": "all",
+                "stylers": [{
+                    "visibility": "simplified"
+                }]
+            }, {
+                "featureType": "road.arterial",
+                "elementType": "labels.icon",
+                "stylers": [{
+                    "visibility": "off"
+                }]
+            }, {
+                "featureType": "transit",
+                "elementType": "all",
+                "stylers": [{
+                    "visibility": "off"
+                }]
+            }, {
+                "featureType": "water",
+                "elementType": "all",
+                "stylers": [{
+                    "color": "#46bcec"
+                }, {
+                    "visibility": "on"
+                }]
+            }];
 
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 14,
@@ -76,6 +145,7 @@
 
             var defaultIcon = makeMarkerIcon('11E165');
             var highlightedIcon = makeMarkerIcon('FF9013');
+            var locationList = document.getElementById('loc-list');
 
             for (var i = 0; i < locations.length; i++) {
                 // Get the position from the location array.
@@ -88,8 +158,10 @@
                     animation: google.maps.Animation.DROP,
                     icon: defaultIcon,
                     id: i,
-                    map:map
+                    map: map
                 });
+
+                addToDisplay(locationList, title);
                 // Push the marker to our array of markers.
                 // markers.push(marker);
                 // Create an onclick event to open the large infowindow at each marker.
@@ -99,10 +171,10 @@
                 // // Two event listeners - one for mouseover, one for mouseout,
                 // // to change the colors back and forth.
                 marker.addListener('mouseover', function() {
-                  this.setIcon(highlightedIcon);
+                    this.setIcon(highlightedIcon);
                 });
                 marker.addListener('mouseout', function() {
-                  this.setIcon(defaultIcon);
+                    this.setIcon(defaultIcon);
                 });
             }
         }
