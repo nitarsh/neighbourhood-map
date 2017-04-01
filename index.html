@@ -3,28 +3,8 @@
 
 <head>
     <title>Shrinath's Neighbourhood map</title>
-    <style type="text/css">
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
 
-        #map {
-            width: 50%;
-            height: 50vh;
-        }
-
-        #main-content {
-            display: flex;
-            width: 100%;
-        }
-
-        #loc-list-container {
-            width: 50%;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script type='text/javascript' src='js/knockout-3.4.2.js'></script>
 </head>
@@ -36,8 +16,12 @@
     <div id="main-content">
         <div id="map"></div>
         <div id="loc-list-container">
-            <ul id="loc-list">
+            <input type="text" placeholder="Filter locations">
 
+            <ul id="loc-list" data-bind="foreach: obsLocations">
+                <li>
+                    <span data-bind="text: title"> </span>
+                </li>
             </ul>
         </div>
     </div>
@@ -52,12 +36,6 @@
                 new google.maps.Point(10, 34),
                 new google.maps.Size(21, 34));
             return markerImage;
-        }
-
-        function addToDisplay(listParent, title) {
-            var child = document.createElement("li");
-            child.appendChild(document.createTextNode(title));
-            listParent.appendChild(child);
         }
 
         function initMap() {
@@ -162,9 +140,12 @@
 
             }];
 
+            // var obsLocations = ko.observableArray();
+            //
+            // ko.applyBindings(locations);
+
             var defaultIcon = makeMarkerIcon('11E165');
             var highlightedIcon = makeMarkerIcon('FF9013');
-            var locationList = document.getElementById('loc-list');
 
             for (var i = 0; i < locations.length; i++) {
                 // Get the position from the location array.
@@ -180,7 +161,7 @@
                     map: map
                 });
 
-                addToDisplay(locationList, title);
+                // addToDisplay(locationList, title);
                 // Push the marker to our array of markers.
                 // markers.push(marker);
                 // Create an onclick event to open the large infowindow at each marker.
@@ -200,5 +181,8 @@
     </script>
     <!--TODO: Load the JS API ASYNCHRONOUSLY below.-->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyOG34X2U6iKWgvwGmukiaBaVr3-PkNs4&callback=initMap">
+    </script>
+
+    <script async defer src="js/locationsVM.js">
     </script>
 </body>

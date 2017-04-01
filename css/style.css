@@ -1,5 +1,40 @@
-* {
-  /*color: #fff;*/
+/** {
+    /*color: #fff;*/
+}*/
+
+body {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
+#map {
+    width: 50%;
+    height: 50vh;
+}
+
+#main-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#loc-list-container {
+    width: 30%;
+    margin: 15px;
+    width: 20vw;
+}
+
+#loc-list-container>input {
+    /*margin: 5px;*/
+    /*margin-left: 15px;*/
+    width: inherit;
+    height: 30px;
 }
 
 div {
@@ -11,16 +46,43 @@ section {
     margin: 10px;
 }
 
-p{
-  font-size: 2vw;
+p {
+    font-size: 2vw;
 }
 
-/*h1 {
-  font-size: 5vw;
-}*/
+#loc-list {
+    list-style: none;
+    /*max-width: 20vw;*/
+    padding: 10px;
+    margin: 0px;
+}
+
+#loc-list>li {
+    list-style: none;
+    /*margin: 5px;*/
+    padding: 10px;
+    background-color: #ff8a6f;
+    text-align: center;
+    text-transform: capitalize;
+    border-width: 1px;
+    border-style: dashed;
+    border-color: grey;
+}
+
+#loc-list>li:hover {
+    background-color: #ff6540;
+}
+
+#loc-list>li:active {
+    background-color: #ff6540;
+}
+
+h1 {
+    text-align: center;
+}
 
 h2 {
-  font-size: 4vw;
+    font-size: 4vw;
 }
 
 .card {
@@ -41,6 +103,6 @@ h2 {
     width: 100%;
 }
 
-.no-border{
-  border: none;
+.no-border {
+    border: none;
 }
