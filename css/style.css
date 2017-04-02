@@ -32,19 +32,36 @@
  .info-window{
    font-size: 0.8em;
  }
+ .info-window > h4{
+   margin: 0 0 2px 0;
+   font-size: 1.4em;
+   text-align: center;
+ }
+
+ .info-window > div{
+   display: flex;
+   justify-content: center;
+ }
+
+ .info-window img{
+   margin-right: 5px;
+ }
+
+ .info-window p{
+   margin: 0;
+   width: 100px;
+   text-align: justify;
+ }
 
  input[type="text"] {
-     /*position: relative;*/
      display: block;
-     /*float: right;*/
      padding: 0.8em;
      width: 60%;
      border: none;
      border-radius: 0;
-     background: #c2c2c2;
-     color: #f2f2f2;
+     background: #f2f2f2;
+     /*color: #f2f2f2;*/
      font-weight: 400;
-     /*font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
      -webkit-appearance: none;
  }
 
@@ -75,8 +92,8 @@
  #loc-list {
      list-style: none;
      /*max-width: 20vw;*/
-     padding: 10px;
-     margin: 0px;
+     padding: 0;
+     margin: 0;
  }
 
  #loc-list>li {

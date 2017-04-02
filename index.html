@@ -16,10 +16,10 @@
     <div id="main-content">
         <div id="map" class="spaced"></div>
         <div id="loc-list-container" class="spaced">
-            <input type="text" placeholder="Filter locations">
+            <input type="text" placeholder="Filter locations" data-bind="">
 
             <ul id="loc-list" data-bind="foreach: obsLocations">
-                <li>
+                <li data-bind="click: $parent.clickLocation">
                     <span data-bind="text: title"> </span>
                 </li>
             </ul>
@@ -27,21 +27,7 @@
     </div>
 
     <script>
-        function makeMarkerIcon(markerColor) {
-            var markerImage = new google.maps.MarkerImage(
-                'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
-                '|40|_|%E2%80%A2',
-                new google.maps.Size(21, 34),
-                new google.maps.Point(0, 0),
-                new google.maps.Point(10, 34),
-                new google.maps.Size(21, 34));
-            return markerImage;
-        }
-
         function initMap() {
-            // TODO: use a constructor to create a new map JS object. You can use the coordinates
-            // 18.546540,73.903070
-            // 18.553104, 73.903938
             var k_nagar = {
                 lat: 18.546540,
                 lng: 73.903070
