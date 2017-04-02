@@ -9,7 +9,7 @@ var locations = [{
     location: {
         lat: 18.5397816,
         lng: 73.8871946
-    } //18.557114, 73.911186
+    }
 }, {
     title: 'Euriska',
     location: {
@@ -59,7 +59,7 @@ function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
         // Clear the infowindow content to give the streetview time to load.
-        infowindow.setContent('');
+        infowindow.setContent(constructInfoWindow(marker.title, 'Loading info, please wait'));
         infowindow.marker = marker;
         // Make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener('closeclick', function() {
@@ -72,7 +72,7 @@ function populateInfoWindow(marker, infowindow) {
                     '<img src="' + pic_url + '" alt="' + title + ' picture" height="42px" width="42px">' +
                     '<p> Cuisines: ' + para + '</p></div>';
             }
-            return '<div class="info-window"><h4>' + title + '</h4>' + '<p> Cuisines: ' + para + '</p></div>';
+            return '<div class="info-window"><h4>' + title + '</h4>' + '<p>' + para + '</p></div>';
         };
 
 
@@ -91,19 +91,17 @@ function populateInfoWindow(marker, infowindow) {
                             console.log(data);
                             infowindow.setContent(constructInfoWindow(marker.title, data.cuisines, data.thumb));
                         } else {
-                            infowindow.setContent('<div>' + marker.title + '</div>' +
-                                '<div>No Zomato data found for this place.</div>');
+                            infowindow.setContent(constructInfoWindow(marker.title, 'SORRY! No results found for this location'));
                         }
                     } else {
-                        infowindow.setContent('<div>' + marker.title + '</div>' +
-                            '<div>Error connecting to Zomato.</div>');
+                        infowindow.setContent(constructInfoWindow(marker.title, 'SORRY! Error connecting to Zomato'));
                     }
                 }
             };
 
 
 
-            var url = "https://developers.tomato.com/api/v2.1/search?";
+            var url = "https://developers.zomato.com/api/v2.1/search?";
             var q_params = "radius=100&lat=" + location.lat() + "&lon=" + location.lng() + "&q=" + title;
 
             xhr.open("GET", url + q_params);
@@ -124,10 +122,10 @@ function LocationsViewModel() {
     self.obsLocations = ko.observableArray(locations);
 
     self.initMarkers = function() {
+        // create icons
         var defaultIcon = makeMarkerIcon('11E165');
         var highlightedIcon = makeMarkerIcon('FF9013');
-
-        // console.log(locations);
+        var newIcon = "images/food_black.svg";
 
         for (var i = 0; i < locations.length; i++) {
             // Get the position from the location array.
@@ -138,17 +136,14 @@ function LocationsViewModel() {
                 position: position,
                 title: title,
                 animation: google.maps.Animation.DROP,
-                icon: defaultIcon,
+                icon: newIcon,
                 id: i,
                 map: map
             });
 
             // Create an onclick event to open the large infowindow at each marker.
             marker.addListener('click', function() {
-                var contentString = "Blah Blha blah";
-                populateInfoWindow(this, new google.maps.InfoWindow({
-                    content: contentString
-                }));
+                populateInfoWindow(this, new google.maps.InfoWindow());
             });
             // Two event listeners - one for mouseover, one for mouseout,
             // to change the colors back and forth.
@@ -177,5 +172,3 @@ function LocationsViewModel() {
 // putting this in window object so we can access this from everywhere
 lvm = new LocationsViewModel();
 ko.applyBindings(lvm);
-
-// lvm.initMarkers();
