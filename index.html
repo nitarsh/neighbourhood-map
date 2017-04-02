@@ -14,8 +14,8 @@
         <h1>Shrinath's Neighbourhood map</h1>
     </header>
     <div id="main-content">
-        <div id="map"></div>
-        <div id="loc-list-container">
+        <div id="map" class="spaced"></div>
+        <div id="loc-list-container" class="spaced">
             <input type="text" placeholder="Filter locations">
 
             <ul id="loc-list" data-bind="foreach: obsLocations">
@@ -101,88 +101,24 @@
                 }]
             }];
 
-            var map = new google.maps.Map(document.getElementById('map'), {
+
+            map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 14,
                 center: k_nagar,
                 styles: styles
             });
 
-            var locations = [{
-                title: 'The Westin',
-                location: {
-                    lat: 18.5396281,
-                    lng: 73.907227
-                }
-            }, {
-                title: 'German Bakery',
-                location: {
-                    lat: 18.542583,
-                    lng: 73.8877385
-                }
-            }, {
-                title: 'Hyatt Pune',
-                location: {
-                    lat: 18.553104,
-                    lng: 73.903938
-                }
-            }, {
-                title: 'Cybage Software',
-                location: {
-                    lat: 18.546228,
-                    lng: 73.910933
-                }
-            }, {
-                title: 'Aga Khan Palace',
-                location: {
-                    lat: 18.552006,
-                    lng: 73.900204
-                }
+            lvm.initMarkers();
 
-            }];
-
-            // var obsLocations = ko.observableArray();
-            //
-            // ko.applyBindings(locations);
-
-            var defaultIcon = makeMarkerIcon('11E165');
-            var highlightedIcon = makeMarkerIcon('FF9013');
-
-            for (var i = 0; i < locations.length; i++) {
-                // Get the position from the location array.
-                var position = locations[i].location;
-                var title = locations[i].title;
-                // Create a marker per location, and put into markers array.
-                var marker = new google.maps.Marker({
-                    position: position,
-                    title: title,
-                    animation: google.maps.Animation.DROP,
-                    icon: defaultIcon,
-                    id: i,
-                    map: map
-                });
-
-                // addToDisplay(locationList, title);
-                // Push the marker to our array of markers.
-                // markers.push(marker);
-                // Create an onclick event to open the large infowindow at each marker.
-                // marker.addListener('click', function() {
-                //   populateInfoWindow(this, largeInfowindow);
-                // });
-                // // Two event listeners - one for mouseover, one for mouseout,
-                // // to change the colors back and forth.
-                marker.addListener('mouseover', function() {
-                    this.setIcon(highlightedIcon);
-                });
-                marker.addListener('mouseout', function() {
-                    this.setIcon(defaultIcon);
-                });
-            }
         }
+    </script>
+
+    <script src="js/locationsVM.js">
     </script>
     <!--TODO: Load the JS API ASYNCHRONOUSLY below.-->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyOG34X2U6iKWgvwGmukiaBaVr3-PkNs4&callback=initMap">
     </script>
 
-    <script async defer src="js/locationsVM.js">
-    </script>
+
+
 </body>
