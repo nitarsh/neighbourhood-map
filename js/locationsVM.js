@@ -140,7 +140,8 @@ function LocationsViewModel() {
     self.addLocation = function(title, location) {
         self.obsLocations.push({
             title: title,
-            location: location
+            location: location,
+            visible:true
         });
     };
 
@@ -158,9 +159,16 @@ function LocationsViewModel() {
         }
     }
 
-    self.filterLocation = function(e) {
-        console.log(e);
-    };
+    // based on the updates to the filter input, we
+    self.filterString.subscribe(function(newValue) {
+        console.log("search value: " + newValue);
+        self.obsLocations().forEach(function(e) {
+            if (e.title.includes(newValue)) {
+                console.log("Filtered value: " + e.title);
+
+            }
+        });
+    });
 }
 
 // putting this in window object so we can access this from everywhere
