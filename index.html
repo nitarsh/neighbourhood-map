@@ -18,7 +18,7 @@
         <div id="loc-list-container" class="spaced">
             <input type="text" placeholder="Filter locations" data-bind="textInput: filterString">
 
-            <ul id="loc-list" data-bind="foreach: obsLocations">
+            <ul id="loc-list" data-bind="foreach: filteredTitles">
                 <li data-bind="click: $parent.clickLocation">
                     <span data-bind="text: title"> </span>
                 </li>

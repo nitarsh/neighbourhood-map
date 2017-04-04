@@ -42,6 +42,16 @@ var locations = [{
     }
 }];
 
+function getTitleArray(locations) {
+    output = [];
+    for (i = 0; i < locations.length; i++) {
+        output.push({
+            title: locations[i].title
+        });
+    }
+    return output;
+}
+
 // Once again, reusing function provided in the examples
 function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
@@ -106,6 +116,8 @@ function LocationsViewModel() {
 
     self.filterString = ko.observable("");
 
+    self.filteredTitles = ko.observableArray(getTitleArray(locations));
+
     self.initMarkers = function() {
         self.markers = {};
         // create icons
@@ -137,37 +149,33 @@ function LocationsViewModel() {
         }
     };
 
-    self.addLocation = function(title, location) {
-        self.obsLocations.push({
-            title: title,
-            location: location,
-            visible:true
-        });
-    };
-
-    self.removeLocation = function() {
-        self.obsLocations.remove(this);
-    };
 
     self.clickLocation = function(location) {
         google.maps.event.trigger(self.markers[location.title], 'click');
     };
 
-    function markerWithTitle(title) {
-        for (var i = 0; i < self.markers.length; i++) {
-            if (self.markers[i].title === title) return self.markers[i];
-        }
+    // Sets the map on all markers in the array.
+    // Taken from https://developers.google.com/maps/documentation/javascript/examples/marker-remove
+    function hideAllMarkers() {
+        Object.keys(self.markers).forEach(function(title) {
+            self.markers[title].setMap(null);
+        });
     }
 
     // based on the updates to the filter input, we
     self.filterString.subscribe(function(newValue) {
-        console.log("search value: " + newValue);
+        // console.log("search value: " + newValue);
+        self.filteredTitles.removeAll();
+        hideAllMarkers();
         self.obsLocations().forEach(function(e) {
-            if (e.title.includes(newValue)) {
-                console.log("Filtered value: " + e.title);
-
+            if (e.title.toLowerCase().includes(newValue.toLowerCase())) {
+                self.filteredTitles.push({
+                    title: e.title
+                });
+                self.markers[e.title].setMap(map);
             }
         });
+        // console.log("Filtered value: " + self.filteredTitles());
     });
 }
 
