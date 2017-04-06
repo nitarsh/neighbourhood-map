@@ -76,7 +76,10 @@ function populateInfoWindow(marker, infowindow) {
         function getZomatoData(title, location) {
             var data = null;
             var xhr = new XMLHttpRequest();
+            // the user may not wait more than 3 seconds. Just based on my experience.
+            xhr.timeout = 3000;
 
+            // onLoad, onError make sure that the response is handled in an Async manner
             xhr.onload = function() {
                 if (xhr.readyState === xhr.DONE) {
                     if (xhr.status === 200) {
@@ -92,6 +95,16 @@ function populateInfoWindow(marker, infowindow) {
                     }
                 }
             };
+
+
+
+            xhr.ontimeout = function(e) {
+                infowindow.setContent(constructInfoWindow(marker.title, 'SORRY! Error connecting to Zomato'));
+            };
+            xhr.onerror = function() {
+                infowindow.setContent(constructInfoWindow(marker.title, 'SORRY! Error connecting to Zomato'));
+            };
+
 
             var url = "https://developers.zomato.com/api/v2.1/search?";
             var q_params = "radius=100&lat=" + location.lat() + "&lon=" + location.lng() + "&q=" + title;
