@@ -85,7 +85,7 @@
  }
 
  @media only screen and (max-width: 791px) {
-     #loc-list-container>input{
+     #loc-list-container>input {
          width: 97%;
      }
  }
@@ -124,28 +124,34 @@
      text-align: center;
  }
 
- h2 {
-     font-size: 4vw;
- }
-
- .card {
-     width: 15vw;
-     height: 15vw;
-     margin: 10px;
-     text-overflow: clip;
-     overflow: scroll;
- }
-
- @media only screen and (max-width: 900px) {
-     .card>p {
-         display: none;
+ /*@media only screen and (max-width: 791px) {
+     h1 {
+         font-size: 1.3em;
+         text-align: left;
+         margin-left: 20px;
      }
+ }*/
+ /*The below code for hamburger and slides was inspired from https://codepen.io/g13nn/pen/eHGEF*/
+
+ .hamburger {
+     display: none;
  }
 
- .full-width {
-     width: 100%;
- }
-
- .no-border {
-     border: none;
+ @media only screen and (max-width: 791px) {
+     header {
+         display: flex;
+         justify-content: space-between;
+         margin-left: 20px;
+         align-items: center;
+     }
+     h1{
+       /*width: 70%;*/
+     }
+     .hamburger {
+         /*font-size: 1.3em;*/
+         height: 37px;
+         display: block;
+         text-align: right;
+         margin-right: 20px;
+     }
  }
