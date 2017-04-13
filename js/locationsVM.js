@@ -106,11 +106,11 @@ function populateInfoWindow(marker, infowindow) {
             };
 
 
-            var url = "https://developers.zomato.com/api/v2.1/search?";
-            var q_params = "radius=100&lat=" + location.lat() + "&lon=" + location.lng() + "&q=" + title;
+            var url = 'https://developers.zomato.com/api/v2.1/search?';
+            var q_params = 'radius=100&lat=' + location.lat() + '&lon=' + location.lng() + '&q=' + title;
 
-            xhr.open("GET", url + q_params);
-            xhr.setRequestHeader("user-key", "75a4b78b20378521dae67a97a4fb168d");
+            xhr.open('GET', url + q_params);
+            xhr.setRequestHeader('user-key', '75a4b78b20378521dae67a97a4fb168d');
 
             xhr.send(data);
         };
@@ -127,15 +127,15 @@ function LocationsViewModel() {
 
     self.obsLocations = ko.observableArray(locations);
 
-    self.filterString = ko.observable("");
+    self.filterString = ko.observable('');
 
     self.filteredTitles = ko.observableArray(getTitleArray(locations));
 
     self.initMarkers = function() {
         self.markers = {};
         // create icons
-        var defaultIcon = "images/food_black.svg";
-        var highlightedIcon = "images/food_blue.svg";
+        var defaultIcon = 'images/food_black.svg';
+        var highlightedIcon = 'images/food_blue.svg';
 
         for (var i = 0; i < locations.length; i++) {
             var position = locations[i].location;
@@ -177,7 +177,6 @@ function LocationsViewModel() {
 
     // based on the updates to the filter input, we
     self.filterString.subscribe(function(newValue) {
-        // console.log("search value: " + newValue);
         self.filteredTitles.removeAll();
         hideAllMarkers();
         self.obsLocations().forEach(function(e) {
@@ -188,7 +187,6 @@ function LocationsViewModel() {
                 self.markers[e.title].setMap(map);
             }
         });
-        // console.log("Filtered value: " + self.filteredTitles());
     });
 }
 

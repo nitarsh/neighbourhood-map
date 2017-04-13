@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script type='text/javascript' src='js/knockout-3.4.2.js'></script>
 </head>
 
 <body>
@@ -15,7 +13,7 @@
         <h1>Shrinath's Neighbourhood map</h1>
         <button id="hamburger" class="menu-icon">&#9776;</button>
     </header>
-    <div id="main-content">
+    <main id="main-content">
         <div id="map"></div>
         <div id="loc-list-container">
             <input type="text" placeholder="Filter locations" data-bind="textInput: filterString">
@@ -26,14 +24,15 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </main>
 
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
         $("#hamburger").click(function() {
             $("#loc-list-container").slideToggle("slow", function() {});
         });
     </script>
-
+    <script src='js/knockout-3.4.2.js'></script>
     <script>
         function initMap() {
             var k_nagar = {
@@ -105,13 +104,17 @@
             lvm.initMarkers();
 
         }
+
+        function handleGMapLoadingError() {
+            $("#map").append('<div id="map-error">Error Loading Google Map</div>');
+        }
     </script>
 
     <!-- We need this to initialize and load this file so that when the Map is ready we can finally put all the markers -->
     <script src="js/locationsVM.js">
     </script>
     <!--TODO: Load the JS API ASYNCHRONOUSLY below.-->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyOG34X2U6iKWgvwGmukiaBaVr3-PkNs4&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyCyOG34X2U6iKWgvwGmukiaBaVr3-PkNs4" onerror="handleGMapLoadingError()">
     </script>
 
 

@@ -16,14 +16,24 @@
      margin: 0 20px;
  }
 
- #main-content {
+ #map-error{
+   text-align: center;
+   width: 100%;
+   padding-top: 10px;
+   height: inherit;
+   border-width: 1px;
+   border-style: dashed;
+   border-color: #c2c2c2;
+ }
+
+ main {
      display: flex;
      justify-content: center;
      width: 100%;
  }
 
  @media only screen and (max-width: 791px) {
-     #main-content {
+     main {
          justify-content: center;
          width: 96%;
          margin: auto;
