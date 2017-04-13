@@ -13,6 +13,7 @@
  #map {
      width: 50%;
      height: 80vh;
+     margin: 0 20px;
  }
 
  #main-content {
@@ -23,22 +24,14 @@
 
  @media only screen and (max-width: 791px) {
      #main-content {
-         display: block;
          justify-content: center;
-         width: 100%;
+         width: 96%;
          margin: auto;
      }
-     #map {
-         width: 94vw;
-     }
- }
-
- #loc-list-container {
-     margin-top: 20px;
- }
-
- .spaced {
-     margin: 20px;
+       #map {
+         margin: 0;
+           width: inherit;
+       }
  }
 
  .info-window {
@@ -86,7 +79,7 @@
 
  @media only screen and (max-width: 791px) {
      #loc-list-container>input {
-         width: 97%;
+         width: inherit;
      }
  }
 
@@ -99,6 +92,22 @@
      list-style: none;
      padding: 0;
      margin: 0;
+ }
+
+ #loc-list-container {
+   display: block;
+ }
+
+ @media only screen and (max-width: 791px) {
+     #loc-list-container {
+         display: none;
+         z-index: 1000000;
+         background: #f1f1f1;
+         position: absolute;
+         text-align: center;
+         top: 80px;
+         right: 4%;
+     }
  }
 
  #loc-list>li {
@@ -122,19 +131,28 @@
 
  h1 {
      text-align: center;
+     margin: 0px;
  }
 
- /*@media only screen and (max-width: 791px) {
+ @media only screen and (max-width: 551px) {
      h1 {
-         font-size: 1.3em;
-         text-align: left;
-         margin-left: 20px;
+         font-size: 1.1em;
      }
- }*/
+ }
+
+ @media only screen and (max-width: 362px) {
+     h1 {
+         font-size: 1.0em;
+     }
+ }
  /*The below code for hamburger and slides was inspired from https://codepen.io/g13nn/pen/eHGEF*/
 
- .hamburger {
+ .menu-icon {
      display: none;
+ }
+ header {
+     margin: 20px 4% 20px 4%;
+     height: 40px;
  }
 
  @media only screen and (max-width: 791px) {
@@ -144,14 +162,10 @@
          margin-left: 20px;
          align-items: center;
      }
-     h1{
-       /*width: 70%;*/
-     }
-     .hamburger {
-         /*font-size: 1.3em;*/
-         height: 37px;
+
+     .menu-icon {
+         height: 30px;
          display: block;
          text-align: right;
-         margin-right: 20px;
      }
  }
