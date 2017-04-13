@@ -3,7 +3,7 @@
 ## Introduction
 - This map contains my locations of interest (restaurants and bars of course!).
 
-## How to use
+## How to run
 - Using the unix terminal, cd to the project folder and run `python -m SimpleHTTPServer`. Open `localhost:8000` in your favourite browser.
 
 ## How to use
